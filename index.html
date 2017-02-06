@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reaction Tester</title>
+	<style type="text/css">
+		body{
+			font-family: Verdana, Geneva, sans-serif; 
+		}
+	</style>
+</head>
+<body>
+	<h1>Test your Reactions!</h1>
+	<p>Click on the boxes and circles as quickly as you can!</p>
+	<b><p>Your Time :<span id="time">0</span>s</p></b>
+	<div id="box" style="width: 200px;height: 200px;background-color: red;display: none;position: relative;"></div>
+	<script type="text/javascript">
+		
+		var clickedTime;
+		var createdTime;
+		var reactionTime;
+
+		function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+		function makeBox() {
+			var x = Math.random();
+			x = x*5000;
+			console.log(x);
+
+			setTimeout(function () {
+				if ((x/5000) > 0.5) {
+					document.getElementById('box').style.borderRadius = "100px";
+				}else{
+					document.getElementById('box').style.borderRadius = "0px";
+				}
+
+				var top = Math.random();
+				top = top*300;
+
+				var left = Math.random();
+				left = left*100;
+				document.getElementById('box').style.top =top+"px";
+				document.getElementById('box').style.left =left+"%";
+				
+				document.getElementById('box').style.backgroundColor = getRandomColor();
+				document.getElementById('box').style.display = "block";
+				createdTime = Date.now();
+			},x);
+		}
+		
+		document.getElementById('box').onclick=function () {
+			
+			clickedTime = Date.now();
+			reactionTime = (clickedTime - createdTime)/1000;
+			document.getElementById('time').innerHTML = reactionTime;
+
+			this.style.display = "none";
+
+			makeBox();
+		}
+
+		makeBox();
+
+	</script>
+</body>
+</html>
